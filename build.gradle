@@ -1,0 +1,33 @@
+group 'validate'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'war'
+
+sourceCompatibility = 1.8
+
+def tomcatVersion = "9.0.0.M21"
+def jstlVersion = "1.2"
+def springVersion = "4.3.8.RELEASE"
+def log4jVersion = "2.8.2"
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+tasks.withType(JavaCompile){
+
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+
+    compile "org.apache.tomcat:tomcat-servlet-api:$tomcatVersion"
+    compile "org.apache.tomcat:tomcat-jsp-api:$tomcatVersion"
+    compile "javax.servlet:jstl:$jstlVersion"
+    compile "org.springframework:spring-webmvc:$springVersion"
+    compile "org.springframework:spring-jdbc:$springVersion"
+    compile "org.apache.logging.log4j:log4j-core:$log4jVersion"
+}
