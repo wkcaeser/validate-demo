@@ -1,0 +1,7 @@
+# validate-demo
+web验证码demo
+
+ValidateCode为二维码生成类，返回值为bufferedimage
+
+将bufferedimage通关转化为base64字符串返回到前端
+前端src直接修改为相应字符串，显示二维码
