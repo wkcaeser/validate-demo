@@ -16,7 +16,7 @@ function showValidate() {
     var imgDiv = $("#validate");
     refreshValidateCode();
     imgDiv.css("display", "");
-    $("#validateText").on("click", "");
+    $("#validateText").unbind("click");
 }
 $("#validateText").on("click", showValidate);
 $("#refreshValidateCode").on("click", refreshValidateCode);
