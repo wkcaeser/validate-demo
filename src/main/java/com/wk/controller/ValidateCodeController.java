@@ -1,13 +1,16 @@
 package com.wk.controller;
 
+import com.google.gson.JsonObject;
 import com.wk.services.validateCode.ValidateCode;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 /**
  * Created by wk on 2017/6/20.
@@ -39,6 +42,32 @@ public class ValidateCodeController {
         session.setAttribute("code", vCode.getCode());
         //验证图片返回前端
         response.getWriter().write(imageB64);
+        return null;
+    }
+
+    /**
+     * 检查验证码是否正确
+     * @return {status:SUCCESS/ERROR}
+     */
+    @RequestMapping(value="/checkValidateCode", method = RequestMethod.GET)
+    public String checkValidateCode(HttpServletRequest request, HttpServletResponse response){
+        //获取session中存储的当前validateCode
+        String code = (String)request.getSession().getAttribute("code");
+        String validateCodeText = request.getParameter("validateCodeText");
+        //检查验证码是否正确
+        String answer = "ERROR";
+        if(validateCodeText != null && code != null){
+            if(validateCodeText.toLowerCase().equals(code))
+                answer = "SUCCESS";
+        }
+
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("status", answer);
+        try {
+            response.getWriter().write(jsonObject.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 }

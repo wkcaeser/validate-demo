@@ -10,6 +10,7 @@ def tomcatVersion = "9.0.0.M21"
 def jstlVersion = "1.2"
 def springVersion = "4.3.8.RELEASE"
 def log4jVersion = "2.8.2"
+def gsonVersion = "2.8.1"
 
 repositories {
     mavenLocal()
@@ -30,4 +31,5 @@ dependencies {
     compile "org.springframework:spring-webmvc:$springVersion"
     compile "org.springframework:spring-jdbc:$springVersion"
     compile "org.apache.logging.log4j:log4j-core:$log4jVersion"
+    compile "com.google.code.gson:gson:$gsonVersion"
 }
