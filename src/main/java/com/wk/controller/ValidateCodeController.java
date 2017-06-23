@@ -23,7 +23,6 @@ public class ValidateCodeController {
      */
     @RequestMapping(value="/validateCode")
     public String validateCode(HttpServletRequest request, HttpServletResponse response) throws Exception{
-        System.out.println("get request");
         // 设置响应的类型格式为图片格式
         response.setContentType("image/jpeg");
         response.setDateHeader("Expires", 0);
@@ -39,7 +38,7 @@ public class ValidateCodeController {
         byteArrayOutputStream.close();
         String imageB64 = javax.xml.bind.DatatypeConverter.printBase64Binary(imageBitArray);
         //验证码存入session
-        session.setAttribute("code", vCode.getCode());
+        session.setAttribute("code", vCode.getCode().toLowerCase());
         //验证图片返回前端
         response.getWriter().write(imageB64);
         return null;
@@ -57,13 +56,17 @@ public class ValidateCodeController {
         //检查验证码是否正确
         String answer = "ERROR";
         if(validateCodeText != null && code != null){
-            if(validateCodeText.toLowerCase().equals(code))
+            if(validateCodeText.toLowerCase().equals(code)) {
                 answer = "SUCCESS";
+            }
         }
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("status", answer);
         try {
+            System.out.println(code);
+            System.out.println(validateCodeText);
+            System.out.println(jsonObject);
             response.getWriter().write(jsonObject.toString());
         } catch (IOException e) {
             e.printStackTrace();
