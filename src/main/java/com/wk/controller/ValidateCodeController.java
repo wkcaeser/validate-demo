@@ -64,9 +64,9 @@ public class ValidateCodeController {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("status", answer);
         try {
-            System.out.println(code);
-            System.out.println(validateCodeText);
-            System.out.println(jsonObject);
+//            System.out.println(code);
+//            System.out.println(validateCodeText);
+//            System.out.println(jsonObject);
             response.getWriter().write(jsonObject.toString());
         } catch (IOException e) {
             e.printStackTrace();
